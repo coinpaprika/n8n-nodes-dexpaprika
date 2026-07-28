@@ -1,0 +1,12 @@
+{
+  "node": "n8n-nodes-dexpaprika.dexPaprika",
+  "nodeVersion": "1.0",
+  "codexVersion": "1.0",
+  "categories": ["Data & Storage"],
+  "resources": {
+    "primaryDocumentation": [
+      { "url": "https://docs.dexpaprika.com/ai-integration/n8n" }
+    ],
+    "credentialDocumentation": []
+  }
+}

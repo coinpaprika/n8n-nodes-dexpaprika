@@ -1,0 +1,53 @@
+{
+  "name": "n8n-nodes-dexpaprika",
+  "version": "0.1.0",
+  "description": "n8n community node for DexPaprika: keyless real-time DEX and on-chain market data across 36 blockchains (pools, token prices, OHLCV, search).",
+  "keywords": [
+    "n8n-community-node-package",
+    "n8n",
+    "dexpaprika",
+    "crypto",
+    "cryptocurrency",
+    "defi",
+    "dex",
+    "blockchain",
+    "market-data"
+  ],
+  "license": "MIT",
+  "homepage": "https://docs.dexpaprika.com/ai-integration/n8n",
+  "author": {
+    "name": "CoinPaprika",
+    "email": "support@coinpaprika.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coinpaprika/n8n-nodes-dexpaprika.git"
+  },
+  "engines": {
+    "node": ">=20.15"
+  },
+  "main": "index.js",
+  "scripts": {
+    "build": "n8n-node build",
+    "dev": "n8n-node dev",
+    "lint": "n8n-node lint",
+    "lint:fix": "n8n-node lint --fix",
+    "prepublishOnly": "n8n-node prerelease"
+  },
+  "files": [
+    "dist"
+  ],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "nodes": [
+      "dist/nodes/DexPaprika/DexPaprika.node.js"
+    ]
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  },
+  "devDependencies": {
+    "@n8n/node-cli": "*",
+    "typescript": "^5.9.3"
+  }
+}
