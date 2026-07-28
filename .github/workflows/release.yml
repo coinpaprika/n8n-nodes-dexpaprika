@@ -14,10 +14,16 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           registry-url: https://registry.npmjs.org
-      - run: npm ci
+      # --ignore-scripts skips the isolated-vm native build (a transitive dev
+      # dependency of the n8n toolchain we never execute) so install stays fast
+      # and does not need node-gyp on the runner.
+      - run: npm ci --ignore-scripts
       - run: npm run build
-      - run: npm publish --provenance --access public
+      # --ignore-scripts on publish skips prepublishOnly (n8n-node prerelease),
+      # which intentionally blocks a bare publish to steer humans to
+      # `npm run release`. CI builds explicitly above, so dist/ is present.
+      - run: npm publish --provenance --access public --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
