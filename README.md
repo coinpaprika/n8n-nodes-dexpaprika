@@ -29,6 +29,12 @@ In n8n, go to **Settings > Community Nodes > Install**, enter `n8n-nodes-dexpapr
 - **List DEXes** - DEXes on a network
 - **Get Stats** - platform-wide totals (chains, DEXes, pools, tokens)
 
+## Example
+
+**As a normal node.** Add the **DexPaprika** node, set Resource to **Pool** and Operation to **Get Top Pools**, and Network to `base`. Run it, and the node returns the top pools on Base by 24h volume, ready to pass to any downstream node (a message, a spreadsheet, a database).
+
+**As an AI Agent tool.** Wire the DexPaprika node into an **AI Agent** node's **Tool** input and prompt the agent with something like "What are the top 5 pools on Base by 24h volume, and what is WETH trading at on Ethereum?" The agent picks the right operations, fills in the parameters, and returns live results.
+
 ## Credentials
 
 None. The DexPaprika API is keyless for public read access. A free registered key or Pro plan raises your rate and monthly quota; see the [rate limits](https://docs.dexpaprika.com/knowledge-base/rate-limits).
