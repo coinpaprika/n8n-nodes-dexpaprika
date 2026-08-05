@@ -1,7 +1,7 @@
 {
   "name": "n8n-nodes-dexpaprika",
   "version": "0.1.1",
-  "description": "n8n community node for DexPaprika: keyless real-time DEX and on-chain market data across 36 blockchains (pools, token prices, OHLCV, search).",
+  "description": "n8n community node for DexPaprika: keyless DEX and on-chain market data across 36 blockchains (pools, token prices, OHLCV, search).",
   "keywords": [
     "n8n-community-node-package",
     "n8n",

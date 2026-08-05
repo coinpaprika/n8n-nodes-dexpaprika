@@ -3,7 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/n8n-nodes-dexpaprika)](https://www.npmjs.com/package/n8n-nodes-dexpaprika)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-An [n8n](https://n8n.io) community node for [DexPaprika](https://dexpaprika.com): keyless, real-time DEX and on-chain market data across 36 blockchains. No API key, no signup.
+An [n8n](https://n8n.io) community node for [DexPaprika](https://dexpaprika.com): keyless DEX and on-chain market data across 36 blockchains. No API key and no signup to start.
 
 The node works as a normal n8n node and as an [AI Agent tool](https://docs.n8n.io/advanced-ai/), so your AI Agent can query live DeFi data directly.
 
@@ -37,7 +37,7 @@ In n8n, go to **Settings > Community Nodes > Install**, enter `n8n-nodes-dexpapr
 
 ## Credentials
 
-None. The DexPaprika API is keyless for public read access. A free registered key or Pro plan raises your rate and monthly quota; see the [rate limits](https://docs.dexpaprika.com/knowledge-base/rate-limits).
+None. The DexPaprika free tier is keyless for public read access: 200,000 credits per month per IP at 30 requests per minute, with data delayed up to 15 seconds. A free registered key raises that to 500,000 credits; Pro is $99 per month for 5,000,000 credits at 300 per minute with real-time data. See the [rate limits](https://docs.dexpaprika.com/knowledge-base/rate-limits). This node sends no API key.
 
 ## Resources
 
