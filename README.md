@@ -37,7 +37,7 @@ In n8n, go to **Settings > Community Nodes > Install**, enter `n8n-nodes-dexpapr
 
 ## Credentials
 
-None. The DexPaprika free tier is keyless for public read access: 200,000 credits per month per IP at 30 requests per minute, with data delayed up to 15 seconds. A free registered key raises that to 500,000 credits; Pro is $99 per month for 5,000,000 credits at 300 per minute with real-time data. See the [rate limits](https://docs.dexpaprika.com/knowledge-base/rate-limits). This node sends no API key.
+None. The DexPaprika free tier is keyless for public read access at 30 requests per minute, with data delayed up to 15 seconds. A free registered key raises the monthly quota; Pro is $99 per month at 300 per minute with real-time data. Current quotas are on the [pricing page](https://dexpaprika.com/api/pricing) and the mechanics are in the [rate limits](https://docs.dexpaprika.com/knowledge-base/rate-limits) docs. This node sends no API key.
 
 ## Resources
 
