@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-dexpaprika",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "n8n community node for DexPaprika: keyless DEX and on-chain market data across 36 blockchains (pools, token prices, OHLCV, search).",
   "keywords": [
     "n8n-community-node-package",
@@ -35,13 +35,17 @@
     "dev": "n8n-node dev",
     "lint": "n8n-node lint",
     "lint:fix": "n8n-node lint --fix",
-    "prepublishOnly": "n8n-node prerelease"
+    "prepublishOnly": "n8n-node prerelease",
+    "test": "npm run build && node --test test/*.test.js"
   },
   "files": [
     "dist"
   ],
   "n8n": {
     "n8nNodesApiVersion": 1,
+    "credentials": [
+      "dist/credentials/DexPaprikaApi.credentials.js"
+    ],
     "nodes": [
       "dist/nodes/DexPaprika/DexPaprika.node.js"
     ]

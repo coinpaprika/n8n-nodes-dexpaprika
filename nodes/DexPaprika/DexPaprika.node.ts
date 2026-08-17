@@ -1,8 +1,9 @@
 import type { INodeType, INodeTypeDescription } from 'n8n-workflow';
 import { NodeConnectionTypes } from 'n8n-workflow';
 
-// Declarative node: every operation maps to a keyless GET on the public
-// DexPaprika REST API (https://api.dexpaprika.com). Calls the keyless free tier; no credentials sent.
+// Declarative node: every operation maps to a GET on the public DexPaprika REST
+// API (https://api.dexpaprika.com). Keyless by default and no credential is
+// required; attaching one raises the monthly credit allowance.
 export class DexPaprika implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'DexPaprika',
@@ -19,6 +20,15 @@ export class DexPaprika implements INodeType {
 		inputs: [NodeConnectionTypes.Main],
 		outputs: [NodeConnectionTypes.Main],
 		usableAsTool: true,
+		// Optional on purpose. Without a credential the node behaves exactly as
+		// before, calling the keyless free tier, so existing workflows are
+		// untouched by this addition.
+		credentials: [
+			{
+				name: 'dexPaprikaApi',
+				required: false,
+			},
+		],
 		requestDefaults: {
 			baseURL: 'https://api.dexpaprika.com',
 			headers: {

@@ -37,7 +37,13 @@ In n8n, go to **Settings > Community Nodes > Install**, enter `n8n-nodes-dexpapr
 
 ## Credentials
 
-None. The DexPaprika free tier is keyless for public read access at 30 requests per minute, with data delayed up to 15 seconds. A free registered key raises the monthly quota; Pro is $99 per month at 300 per minute with real-time data. Current quotas are on the [pricing page](https://dexpaprika.com/api/pricing) and the mechanics are in the [rate limits](https://docs.dexpaprika.com/knowledge-base/rate-limits) docs. This node sends no API key.
+**Optional.** The node works with no credential attached and always will: DexPaprika serves a keyless free tier for public read access at 30 requests per minute, with data delayed up to 15 seconds. Existing workflows need no change.
+
+Attaching a **DexPaprika API** credential raises the monthly credit allowance. It does **not** raise the per-minute limit, which is the same on both free tiers, so attach one if you are running out of monthly credits rather than hitting rate limits. Pro is $99 per month at 300 per minute with real-time data. Current quotas are on the [pricing page](https://dexpaprika.com/api/pricing) and the mechanics are in the [rate limits](https://docs.dexpaprika.com/knowledge-base/rate-limits) docs.
+
+Get a free key at [console.dexpaprika.com](https://console.dexpaprika.com) and paste it exactly as issued. **There is no `Bearer` prefix**: the node sends the key as the entire `Authorization` value, which is what the API expects.
+
+Use the credential's **Test** button to confirm it works. It checks `/usage`, deliberately: on the data endpoints a key the API cannot read is ignored rather than rejected, so the call returns `200` with real data while quietly serving you the keyless tier. `/usage` is the only endpoint that reports the truth.
 
 ## Resources
 
