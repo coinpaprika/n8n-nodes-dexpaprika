@@ -10,10 +10,10 @@ const credential = new DexPaprikaApi();
 const node = new DexPaprika();
 const authHeader = credential.authenticate.properties.headers.Authorization;
 
-// ── The Bearer rule ────────────────────────────────────────────────────────
-// The key is the entire Authorization value. `Bearer api_...` returns 401,
-// because the API checksums the raw header and nothing strips a scheme word.
-// This has resurfaced three times in four months, so pin the expression exactly.
+// ── The Authorization rule ─────────────────────────────────────────────────
+// The key is the entire Authorization value. Nothing goes in front of it and no
+// scheme word is ever prepended. That has been re-derived wrongly three times in
+// four months, so pin the expression exactly.
 
 test('the credential sends the key as the entire Authorization value', () => {
 	assert.equal(authHeader, '={{$credentials.apiKey}}');
