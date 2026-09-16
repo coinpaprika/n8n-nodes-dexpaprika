@@ -3,7 +3,7 @@ import { NodeConnectionTypes } from 'n8n-workflow';
 
 // Declarative node: every operation maps to a GET on the public DexPaprika REST
 // API (https://api.dexpaprika.com). Keyless by default and no credential is
-// required; attaching one raises the monthly credit allowance.
+// required; attaching one raises the credit allowance and the per-minute limit.
 export class DexPaprika implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'DexPaprika',

@@ -37,9 +37,9 @@ In n8n, go to **Settings > Community Nodes > Install**, enter `n8n-nodes-dexpapr
 
 ## Credentials
 
-**Optional.** The node works with no credential attached and always will: DexPaprika serves a keyless free tier for public read access, with data delayed up to 15 seconds. Current rates and quotas are on [the rate limits page](https://docs.dexpaprika.com/knowledge-base/rate-limits). Existing workflows need no change.
+**Optional.** The node works with no credential attached: DexPaprika serves a keyless free tier for public read access, with data delayed up to 60 seconds. Current rates and quotas are on [the rate limits page](https://docs.dexpaprika.com/knowledge-base/rate-limits). Existing workflows need no change.
 
-Attaching a **DexPaprika API** credential raises the monthly credit allowance. It does **not** raise the per-minute limit, which is the same on both free tiers, so attach one if you are running out of monthly credits rather than hitting rate limits. Pro is $99 per month at 300 per minute with real-time data. Current quotas are on the [pricing page](https://dexpaprika.com/api/pricing) and the mechanics are in the [rate limits](https://docs.dexpaprika.com/knowledge-base/rate-limits) docs.
+Attaching a **DexPaprika API** credential raises both the credit allowance and the per-minute limit: keyless runs at 15 requests a minute and a registered key at 30, so attach one when you hit either ceiling. Paid plans serve real-time data: Dev is $30 per month at 120 a minute and Pro $99 at 500. Current quotas are on the [pricing page](https://dexpaprika.com/api/pricing) and the mechanics are in the [rate limits](https://docs.dexpaprika.com/knowledge-base/rate-limits) docs.
 
 Get a free key at [console.dexpaprika.com](https://console.dexpaprika.com) and paste it exactly as issued. **There is no `Bearer` prefix**: the node sends the key as the entire `Authorization` value, which is what the API expects.
 
