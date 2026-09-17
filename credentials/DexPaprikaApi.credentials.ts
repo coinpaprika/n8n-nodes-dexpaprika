@@ -9,10 +9,11 @@ import type {
 /**
  * Optional DexPaprika API key.
  *
- * The node works without this credential and always will: DexPaprika serves a
- * keyless free tier that needs no signup. Attaching a key raises the monthly
- * credit allowance and opens streaming on any token. It does not raise the
- * per-minute request limit, which is the same on both free tiers.
+ * The node works without this credential: DexPaprika serves a keyless free tier
+ * that needs no signup. Attaching a key raises the credit allowance, doubles the
+ * per-minute limit from 15 to 30, and opens streaming on any token. An earlier
+ * version of this comment said a key did not raise the per-minute limit, which
+ * was built on a keyless figure of 30 that was never right.
  */
 export class DexPaprikaApi implements ICredentialType {
 	name = 'dexPaprikaApi';
