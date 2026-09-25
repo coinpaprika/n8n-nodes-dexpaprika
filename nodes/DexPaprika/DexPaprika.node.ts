@@ -262,10 +262,11 @@ export class DexPaprika implements INodeType {
 				displayName: 'Start',
 				name: 'start',
 				type: 'string',
-				default: '',
+				default: '-24h',
 				required: true,
-				placeholder: '2026-01-01',
-				description: 'Start of the OHLCV range (YYYY-MM-DD, RFC3339, or Unix timestamp)',
+				placeholder: '-24h',
+				description:
+					'Start of the OHLCV range. An offset back from now is simplest: -24h, -7d, -90m. Also YYYY-MM-DD, RFC3339, or Unix timestamp. Without a credential only the last 24 hours are available; a free key opens 7 days.',
 				displayOptions: { show: { resource: ['pool'], operation: ['getOhlcv'] } },
 				routing: { send: { type: 'query', property: 'start' } },
 			},
@@ -277,6 +278,7 @@ export class DexPaprika implements INodeType {
 				options: [
 					{ name: '1 Hour', value: '1h' },
 					{ name: '1 Minute', value: '1m' },
+					{ name: '10 Minutes', value: '10m' },
 					{ name: '12 Hours', value: '12h' },
 					{ name: '15 Minutes', value: '15m' },
 					{ name: '24 Hours', value: '24h' },
@@ -284,8 +286,20 @@ export class DexPaprika implements INodeType {
 					{ name: '5 Minutes', value: '5m' },
 					{ name: '6 Hours', value: '6h' },
 				],
+				description:
+					'Candle size. Without a credential 1 hour and longer; a free key opens 10 minutes and longer; 1 and 5 minutes need a paid plan.',
 				displayOptions: { show: { resource: ['pool'], operation: ['getOhlcv'] } },
 				routing: { send: { type: 'query', property: 'interval' } },
+			},
+			{
+				displayName: 'Limit',
+				name: 'limit',
+				type: 'number',
+				typeOptions: { minValue: 1, maxValue: 1000 },
+				default: 50,
+				description: 'Max number of results to return',
+				displayOptions: { show: { resource: ['pool'], operation: ['getOhlcv'] } },
+				routing: { send: { type: 'query', property: 'limit' } },
 			},
 
 			// ─── Shared: limit (list operations) ─────────────────────────────
@@ -299,7 +313,7 @@ export class DexPaprika implements INodeType {
 				displayOptions: {
 					show: {
 						resource: ['token', 'pool'],
-						operation: ['getTop', 'getOhlcv'],
+						operation: ['getTop'],
 					},
 				},
 				routing: { send: { type: 'query', property: 'limit' } },
