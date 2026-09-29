@@ -40,12 +40,8 @@ export class DexPaprikaApi implements ICredentialType {
 	];
 
 	/**
-	 * The key is the ENTIRE Authorization value.
-	 *
-	 * There is no `Bearer` prefix and no other scheme word: the API checksums the
-	 * raw header, so a scheme word returns 401. This is the single most common
-	 * reason a working key looks broken, which is why the expression below is
-	 * bare and must stay that way.
+	 * The key is the ENTIRE Authorization value, with nothing in front of it,
+	 * which is why the expression below is bare and must stay that way.
 	 */
 	authenticate: IAuthenticateGeneric = {
 		type: 'generic',

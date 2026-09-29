@@ -58,12 +58,6 @@ export class DexPaprika implements INodeType {
 				displayOptions: { show: { resource: ['token'] } },
 				options: [
 					{
-						name: 'Search',
-						value: 'search',
-						action: 'Search tokens pools and exchanges across all networks',
-						routing: { request: { method: 'GET', url: '/search' } },
-					},
-					{
 						name: 'Get Details',
 						value: 'getDetails',
 						action: 'Get price and metadata for one token',
@@ -86,6 +80,22 @@ export class DexPaprika implements INodeType {
 						},
 					},
 					{
+						name: 'Get Token OHLCV',
+						value: 'getTokenOhlcv',
+						action: 'Get historical OHLCV candles for one token',
+						description:
+							'USD candles built from a volume-weighted price across every pool the token trades in on that network. Needs a Dev, Pro or Enterprise plan on https://api-pro.dexpaprika.com.',
+						routing: {
+							request: {
+								method: 'GET',
+								// Dev, Pro and Enterprise all use this host, and no other plan
+								// can call the endpoint, so it is fixed rather than configured.
+								baseURL: 'https://api-pro.dexpaprika.com',
+								url: '=/networks/{{$parameter.network}}/tokens/{{$parameter.contractAddress}}/ohlcv',
+							},
+						},
+					},
+					{
 						name: 'Get Top Tokens',
 						value: 'getTop',
 						action: 'Get top tokens on a network by volume',
@@ -95,6 +105,12 @@ export class DexPaprika implements INodeType {
 								url: '=/networks/{{$parameter.network}}/tokens/search',
 							},
 						},
+					},
+					{
+						name: 'Search',
+						value: 'search',
+						action: 'Search tokens pools and exchanges across all networks',
+						routing: { request: { method: 'GET', url: '/search' } },
 					},
 				],
 				default: 'search',
@@ -231,7 +247,7 @@ export class DexPaprika implements INodeType {
 				required: true,
 				placeholder: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
 				description: 'Token contract address on the given network',
-				displayOptions: { show: { resource: ['token'], operation: ['getDetails'] } },
+				displayOptions: { show: { resource: ['token'], operation: ['getDetails', 'getTokenOhlcv'] } },
 			},
 			{
 				displayName: 'Token Addresses',
@@ -243,6 +259,66 @@ export class DexPaprika implements INodeType {
 				description: 'Comma-separated token addresses (up to 10) on the same network',
 				displayOptions: { show: { resource: ['token'], operation: ['getPrices'] } },
 				routing: { send: { type: 'query', property: 'tokens' } },
+			},
+			{
+				displayName:
+					'Get Token OHLCV needs a Dev, Pro or Enterprise plan. Attach the DexPaprika API credential with a key from one of those plans; this operation calls https://api-pro.dexpaprika.com.',
+				name: 'tokenOhlcvPlanNotice',
+				type: 'notice',
+				default: '',
+				displayOptions: { show: { resource: ['token'], operation: ['getTokenOhlcv'] } },
+			},
+			{
+				displayName: 'Start',
+				name: 'start',
+				type: 'string',
+				default: '-24h',
+				required: true,
+				placeholder: '-24h',
+				description:
+					'Start of the OHLCV range. An offset back from now is simplest: -24h, -7d, -90m. Also YYYY-MM-DD, RFC3339, or Unix timestamp. Needs a Dev, Pro or Enterprise plan; Dev history reaches back 30 days.',
+				displayOptions: { show: { resource: ['token'], operation: ['getTokenOhlcv'] } },
+				routing: { send: { type: 'query', property: 'start' } },
+			},
+			{
+				displayName: 'End',
+				name: 'end',
+				type: 'string',
+				default: '',
+				placeholder: '-1h',
+				description: 'End of the OHLCV range, same formats as Start. Leave blank for now.',
+				displayOptions: { show: { resource: ['token'], operation: ['getTokenOhlcv'] } },
+				routing: { send: { type: 'query', property: 'end' } },
+			},
+			{
+				displayName: 'Interval',
+				name: 'interval',
+				type: 'options',
+				default: '24h',
+				options: [
+					{ name: '1 Hour', value: '1h' },
+					{ name: '1 Minute', value: '1m' },
+					{ name: '10 Minutes', value: '10m' },
+					{ name: '12 Hours', value: '12h' },
+					{ name: '15 Minutes', value: '15m' },
+					{ name: '24 Hours', value: '24h' },
+					{ name: '30 Minutes', value: '30m' },
+					{ name: '5 Minutes', value: '5m' },
+					{ name: '6 Hours', value: '6h' },
+				],
+				description: 'Candle size',
+				displayOptions: { show: { resource: ['token'], operation: ['getTokenOhlcv'] } },
+				routing: { send: { type: 'query', property: 'interval' } },
+			},
+			{
+				displayName: 'Limit',
+				name: 'limit',
+				type: 'number',
+				typeOptions: { minValue: 1, maxValue: 1000 },
+				default: 50,
+				description: 'Max number of results to return',
+				displayOptions: { show: { resource: ['token'], operation: ['getTokenOhlcv'] } },
+				routing: { send: { type: 'query', property: 'limit' } },
 			},
 
 			// ─── Pool params ─────────────────────────────────────────────────
