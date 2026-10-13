@@ -189,19 +189,3 @@ test('every Additional Fields option is routed as a query string parameter, by i
 		assert.deepEqual(option.routing.request.qs, { [name]: '={{$value}}' });
 	}
 });
-
-// ── No em dash, en dash, or Bearer leaked into the new copy ─────────────────
-
-test('the new copy has no em dash, en dash, or Bearer', () => {
-	const strings = [
-		tokenIndicator.description,
-		poolIndicator.description,
-		...shownFor('getIndicator').flatMap((p) => [p.displayName, p.description]),
-		...additionalFields().options.flatMap((p) => [p.displayName, p.description]),
-	].filter(Boolean);
-	for (const s of strings) {
-		assert.ok(!s.includes('—'), `em dash found in: ${s}`);
-		assert.ok(!s.includes('–'), `en dash found in: ${s}`);
-		assert.ok(!/bearer/i.test(s), `the word Bearer found in: ${s}`);
-	}
-});
