@@ -19,11 +19,13 @@ In n8n, go to **Settings > Community Nodes > Install**, enter `n8n-nodes-dexpapr
 - **Get Prices (Batch)** - USD prices for up to 10 tokens on the same network
 - **Get Top Tokens** - top tokens on a network by volume
 - **Get Token OHLCV** - historical USD candles for one token, volume-weighted across every pool it trades in on that network (1m to 24h intervals, up to 1000 candles). Needs the credential with a Dev, Pro or Enterprise key; the operation calls `https://api-pro.dexpaprika.com` on its own. Plans are on the [pricing page](https://dexpaprika.com/api/pricing). See [Get OHLCV data for a token](https://docs.dexpaprika.com/api-reference/tokens/get-ohlcv-data-for-a-token).
+- **Get Indicator** - RSI, EMA, MACD, Bollinger Bands or VWAP for one token, computed the same way as Get Token OHLCV. Needs the credential with a Dev, Pro or Enterprise key; the operation calls `https://api-pro.dexpaprika.com` on its own. See [Get a technical indicator for a token](https://docs.dexpaprika.com/api-reference/tokens/get-a-technical-indicator-for-a-token).
 
 **Pool**
 - **Get Top Pools** - top pools on a network by volume
 - **Get Details** - full details for one pool
 - **Get OHLCV** - historical candles for one pool (1m to 24h intervals, up to 1000 candles). Start accepts an offset such as `-24h`. History depends on your plan: without a credential the last 24 hours at 1h and longer, a free key 7 days at 10m and longer, Dev 30 days at every interval, Pro with no plan limit on history. See [OHLCV limits by plan](https://docs.dexpaprika.com/knowledge-base/rate-limits#ohlcv-limits-by-plan).
+- **Get Indicator** - RSI, EMA, MACD, Bollinger Bands or VWAP over the candles for one pool. Available on every plan, with the same interval and history limits as Get OHLCV. The Additional Fields collection takes Limit, Start, End and Cursor for every indicator, plus Period (RSI, EMA, Bollinger Bands, VWAP), Fast Period, Slow Period and Signal Period (MACD), and Standard Deviation (Bollinger Bands); each is sent only when you add it. See [Get a technical indicator for a pool](https://docs.dexpaprika.com/api-reference/pools/get-a-technical-indicator-for-a-pool) and the [technical indicators tutorial](https://docs.dexpaprika.com/tutorials/technical-indicators).
 
 **Network**
 - **List Networks** - every supported blockchain network
