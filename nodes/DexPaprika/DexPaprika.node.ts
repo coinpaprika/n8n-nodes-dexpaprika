@@ -1,5 +1,39 @@
-import type { INodeType, INodeTypeDescription } from 'n8n-workflow';
-import { NodeConnectionTypes } from 'n8n-workflow';
+import type {
+	IExecuteSingleFunctions,
+	IHttpRequestOptions,
+	INodeType,
+	INodeTypeDescription,
+} from 'n8n-workflow';
+import { NodeConnectionTypes, NodeOperationError } from 'n8n-workflow';
+
+// The network id and the token and pool addresses are placed into the request
+// path, and the request can carry the API key. A value that could add a path
+// segment, a query or a fragment ("..", "/", "?", "#", "%" and the like) is
+// refused before the request is sent, whether a person or an AI agent filled
+// it in. Ids the API returns do not contain these characters.
+const UNSAFE_CHAR = /[/\\?#%\s]/;
+const isUnsafeSegment = (value: string): boolean =>
+	value === '' ||
+	value === '.' ||
+	value === '..' ||
+	UNSAFE_CHAR.test(value) ||
+	[...value].some((c) => c.charCodeAt(0) < 0x20 || c.charCodeAt(0) === 0x7f);
+
+export function assertPathParameter(name: string) {
+	return async function (
+		this: IExecuteSingleFunctions,
+		requestOptions: IHttpRequestOptions,
+	): Promise<IHttpRequestOptions> {
+		const value = String(this.getNodeParameter(name, '') ?? '');
+		if (isUnsafeSegment(value)) {
+			throw new NodeOperationError(
+				this.getNode(),
+				`${name} must be a single id or address, got '${value.slice(0, 100)}'`,
+			);
+		}
+		return requestOptions;
+	};
+}
 
 // Declarative node: every operation maps to a GET on the public DexPaprika REST
 // API (https://api.dexpaprika.com). Keyless by default and no credential is
@@ -231,6 +265,7 @@ export class DexPaprika implements INodeType {
 				required: true,
 				placeholder: 'ethereum',
 				description: 'Network ID (e.g. \'ethereum\', \'solana\', \'base\'). List them with the Network resource.',
+				routing: { send: { preSend: [assertPathParameter('network')] } },
 				displayOptions: {
 					show: {
 						resource: ['token', 'pool'],
@@ -248,6 +283,7 @@ export class DexPaprika implements INodeType {
 				required: true,
 				placeholder: 'ethereum',
 				description: 'Network ID (e.g. \'ethereum\', \'solana\', \'base\')',
+				routing: { send: { preSend: [assertPathParameter('network')] } },
 				displayOptions: {
 					show: {
 						resource: ['network'],
@@ -276,6 +312,7 @@ export class DexPaprika implements INodeType {
 				required: true,
 				placeholder: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
 				description: 'Token contract address on the given network',
+				routing: { send: { preSend: [assertPathParameter('contractAddress')] } },
 				displayOptions: {
 					show: { resource: ['token'], operation: ['getDetails', 'getTokenOhlcv', 'getIndicator'] },
 				},
@@ -511,6 +548,7 @@ export class DexPaprika implements INodeType {
 				required: true,
 				placeholder: '0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640',
 				description: 'Pool contract address on the given network',
+				routing: { send: { preSend: [assertPathParameter('poolAddress')] } },
 				displayOptions: {
 					show: { resource: ['pool'], operation: ['getDetails', 'getOhlcv', 'getIndicator'] },
 				},
