@@ -9,10 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      id-token: write # required for npm provenance
+      id-token: write # required for npm trusted publishing (OIDC) and provenance
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: 22
           registry-url: https://registry.npmjs.org
@@ -21,9 +21,13 @@ jobs:
       # and does not need node-gyp on the runner.
       - run: npm ci --ignore-scripts
       - run: npm run build
+      # npm trusted publishing (OIDC) needs npm 11.5.1 or later; the version
+      # bundled with this Node release is older. Pinned, not @latest.
+      - run: npm install -g npm@11.21.1
       # --ignore-scripts on publish skips prepublishOnly (n8n-node prerelease),
       # which intentionally blocks a bare publish to steer humans to
       # `npm run release`. CI builds explicitly above, so dist/ is present.
+      # No token here: with id-token: write and this package configured as a
+      # Trusted Publisher on npmjs.com, npm authenticates the publish over
+      # OIDC on its own.
       - run: npm publish --provenance --access public --ignore-scripts
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
