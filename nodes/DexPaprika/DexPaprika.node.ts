@@ -47,7 +47,7 @@ export class DexPaprika implements INodeType {
 		version: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
 		description:
-			'Real-time DEX and on-chain market data across 36 blockchains: pools, token prices, OHLCV, and search. Keyless.',
+			'DEX and on-chain market data across 35 blockchains: pools, token prices, OHLCV, and search. No API key needed to start.',
 		defaults: {
 			name: 'DexPaprika',
 		},

@@ -3,7 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/n8n-nodes-dexpaprika)](https://www.npmjs.com/package/n8n-nodes-dexpaprika)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-An [n8n](https://n8n.io) community node for [DexPaprika](https://dexpaprika.com): keyless DEX and on-chain market data across 36 blockchains. No API key and no signup to start.
+An [n8n](https://n8n.io) community node for [DexPaprika](https://dexpaprika.com): DEX and on-chain market data across 35 blockchains. No API key and no signup to start; a free key from [console.dexpaprika.com](https://console.dexpaprika.com) raises the limits and is needed for batch prices.
 
 The node works as a normal n8n node and as an [AI Agent tool](https://docs.n8n.io/advanced-ai/), so your AI Agent can query live DeFi data directly.
 
