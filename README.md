@@ -16,7 +16,7 @@ In n8n, go to **Settings > Community Nodes > Install**, enter `n8n-nodes-dexpapr
 **Token**
 - **Search** - find tokens, pools, and DEXes across all networks by name, symbol, or address
 - **Get Details** - price and metadata for one token on one network
-- **Get Prices (Batch)** - USD prices for up to 10 tokens on the same network
+- **Get Prices (Batch)** - USD prices for up to 10 tokens on the same network. Needs the credential with an API key; a free key works, get one at [console.dexpaprika.com](https://console.dexpaprika.com). Without a key the API answers 403 `plan_required`.
 - **Get Top Tokens** - top tokens on a network by volume
 - **Get Token OHLCV** - historical USD candles for one token, volume-weighted across every pool it trades in on that network (1m to 24h intervals, up to 1000 candles). Needs the credential with a Dev, Pro or Enterprise key; the operation calls `https://api-pro.dexpaprika.com` on its own. Plans are on the [pricing page](https://dexpaprika.com/api/pricing). See [Get OHLCV data for a token](https://docs.dexpaprika.com/api-reference/tokens/get-ohlcv-data-for-a-token).
 - **Get Indicator** - RSI, EMA, MACD, Bollinger Bands or VWAP for one token, computed the same way as Get Token OHLCV. Needs the credential with a Dev, Pro or Enterprise key; the operation calls `https://api-pro.dexpaprika.com` on its own. See [Get a technical indicator for a token](https://docs.dexpaprika.com/api-reference/tokens/get-a-technical-indicator-for-a-token).

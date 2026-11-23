@@ -122,6 +122,8 @@ export class DexPaprika implements INodeType {
 						name: 'Get Prices (Batch)',
 						value: 'getPrices',
 						action: 'Get USD prices for up to 10 tokens on one network',
+						description:
+							'Needs the DexPaprika API credential with an API key. A free key is enough: get one at https://console.dexpaprika.com.',
 						routing: {
 							request: {
 								method: 'GET',
